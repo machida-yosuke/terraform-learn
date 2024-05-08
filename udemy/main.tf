@@ -1,17 +1,21 @@
+terraform {
+  required_version = ">= 0.13"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~>3.0"
+    }
+  }
+}
+
 provider "aws" {
   region = "ap-northeast-1"
 }
 
-resource "aws_instance" "hello-world" {
-  ami = "ami-0ab3794db9457b60a"
-  instance_type = "t2.micro"
-  tags = {
-    Name = "HelloWorld"
-  }
+variable "project" {
+  type = string
+}
 
-  user_data = <<EOF
-#!/bin/bash
-amazon-linux-extras install -y nginx1.12
-systemctl start nginx
-EOF
+variable "environment" {
+  type = string
 }
